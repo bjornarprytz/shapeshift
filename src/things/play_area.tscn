@@ -1,0 +1,62 @@
+[gd_scene load_steps=7 format=3 uid="uid://bttkqg8asugdx"]
+
+[ext_resource type="PackedScene" uid="uid://pxivlp4yp7j2" path="res://things/player.tscn" id="1_iilg3"]
+[ext_resource type="Script" path="res://things/player_config.gd" id="2_8b828"]
+
+[sub_resource type="Resource" id="Resource_s56bd"]
+script = ExtResource("2_8b828")
+left = 65
+right = 68
+down = 83
+up = 87
+contort = 90
+grab = 88
+color = Color(0.568627, 0.6, 0, 1)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ect15"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_esay2"]
+
+[sub_resource type="Resource" id="Resource_c6o21"]
+script = ExtResource("2_8b828")
+left = 4194319
+right = 4194321
+down = 4194322
+up = 4194320
+contort = 4194326
+grab = 4194325
+color = Color(0.172549, 0.509804, 0.803922, 1)
+
+[node name="PlayArea" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_iilg3")]
+position = Vector2(387, 573)
+config = SubResource("Resource_s56bd")
+
+[node name="Floor" type="StaticBody2D" parent="."]
+
+[node name="Shape" type="CollisionShape2D" parent="Floor"]
+position = Vector2(0, 670)
+shape = SubResource("WorldBoundaryShape2D_ect15")
+
+[node name="ColorRect" type="ColorRect" parent="Floor"]
+offset_top = 670.0
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="LeftWall" type="StaticBody2D" parent="."]
+
+[node name="Bounds" type="CollisionShape2D" parent="LeftWall"]
+rotation = 1.5708
+shape = SubResource("WorldBoundaryShape2D_esay2")
+
+[node name="RightWall" type="StaticBody2D" parent="."]
+
+[node name="Bounds" type="CollisionShape2D" parent="RightWall"]
+position = Vector2(1280, 0)
+rotation = -1.5708
+shape = SubResource("WorldBoundaryShape2D_esay2")
+
+[node name="Player2" parent="." instance=ExtResource("1_iilg3")]
+position = Vector2(915, 601)
+config = SubResource("Resource_c6o21")

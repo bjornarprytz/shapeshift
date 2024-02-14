@@ -1,10 +1,41 @@
 # shapeshift
 
+## Concept
+
+- Theme: shapeshift
+
+Cooperate as as the lucky participants of a japanese game show.
+
+It's the classic "fit the shape".
+
+### Mechanics
+
+- Move and jump
+- Players with collider
+- Contort into other shapes
+- Balance on top of other players
+- Get to the shape within the time limit
+
+### Presentation
+
+- 2d game field
+- 3d background
+  - Moves toward the camera
+
 ## TODO
 
-- Get Butler API key from [itch.io](https://itch.io/user/settings/api-keys)
-- Publish github repo
-- Add key to GitHub secrets as BUTLER_API_KEY [link](https://github.com/bjornarprytz/shapeshift/settings/secrets/actions)
+- Player
+  - Climb on top of other players
+  - Idle animation
+- Game Loop
+  - Target area
+  - Countdown timer
+  - Scoring
+  - Failure animation
+- Music
+- Scene (3d)
+  - Billboard background moving toward the camera
+
 - Push release with `./push_release.sh`
 
 ### Extra

@@ -1,0 +1,78 @@
+[gd_scene load_steps=4 format=3 uid="uid://pxivlp4yp7j2"]
+
+[ext_resource type="Script" path="res://things/player.gd" id="1_gfkjo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1dd7d"]
+size = Vector2(80, 160)
+
+[sub_resource type="Theme" id="Theme_wa6to"]
+default_font_size = 256
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_gfkjo")
+
+[node name="Shape" type="CollisionShape2D" parent="."]
+position = Vector2(0, -80)
+shape = SubResource("RectangleShape2D_1dd7d")
+
+[node name="Body" type="ColorRect" parent="."]
+offset_left = -40.0
+offset_top = -102.0
+offset_right = 40.0
+
+[node name="Head" type="ColorRect" parent="."]
+offset_left = -40.0
+offset_top = -160.0
+offset_right = 40.0
+offset_bottom = -74.0
+
+[node name="Face" type="ColorRect" parent="Head"]
+offset_left = 14.0
+offset_top = 15.0
+offset_right = 66.0
+offset_bottom = 67.0
+color = Color(0.701961, 0.415686, 0, 1)
+
+[node name="Eyes" type="RichTextLabel" parent="Head/Face"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 67.0
+offset_top = 6.0
+offset_right = 249.0
+offset_bottom = 403.0
+rotation = 1.5708
+scale = Vector2(0.2, 0.2)
+theme = SubResource("Theme_wa6to")
+text = ":"
+
+[node name="Mouth" type="RichTextLabel" parent="Head/Face"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 67.0
+offset_top = 23.0
+offset_right = 239.0
+offset_bottom = 420.0
+rotation = 1.5708
+scale = Vector2(0.2, 0.2)
+theme = SubResource("Theme_wa6to")
+text = ")"
+
+[node name="RightArm" type="ColorRect" parent="."]
+offset_left = 28.0
+offset_top = -88.0
+offset_right = 52.0
+offset_bottom = -24.0
+pivot_offset = Vector2(12, 12)
+
+[node name="LeftArm" type="ColorRect" parent="."]
+offset_left = -52.0
+offset_top = -88.0
+offset_right = -28.0
+offset_bottom = -24.0
+pivot_offset = Vector2(12, 12)
+
+[node name="HeadTopPosition" type="Node2D" parent="."]
+position = Vector2(-40, -160)
+
+[node name="HeadLowerPosition" type="Node2D" parent="."]
+position = Vector2(-40, -100)
