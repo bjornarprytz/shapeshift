@@ -1,20 +1,18 @@
+class_name Player
 extends CharacterBody2D
 
 @export var config : PlayerConfig
 
 @onready var head : ColorRect = $Head
-@onready var body : ColorRect = $Body
+@onready var my_body : ColorRect = $Body
 @onready var head_upright : Node2D = $HeadTopPosition
 @onready var head_crouching : Node2D = $HeadLowerPosition
 @onready var left_arm : ColorRect = $LeftArm
 @onready var right_arm : ColorRect = $RightArm
 
-@onready var eyes : RichTextLabel = $Head/Face/Eyes
-@onready var mouth : RichTextLabel = $Head/Face/Mouth
+@onready var face : Face = $Head/Face
 
-@onready var eyes_base_pos : Vector2 = eyes.position
-@onready var mouth_base_pos : Vector2 = mouth.position
-
+var people_close : Array[Player] = []
 
 const SPEED = 400.0
 const JUMP_VELOCITY = -400.0
@@ -31,7 +29,7 @@ var confirm_contort : bool
 
 func _ready() -> void:
 	assert(config != null)
-	for part in [body, head, left_arm, right_arm]:
+	for part in [my_body, head, left_arm, right_arm]:
 		part.color = config.color
 	
 
@@ -62,25 +60,21 @@ func _contort_left():
 	confirm_contort = true
 	var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_ELASTIC).set_parallel()
 	tween.tween_property(left_arm, 'rotation_degrees', 90.0, 0.5)
-	tween.tween_property(eyes, 'position', eyes_base_pos + (Vector2.LEFT * 5.0), 0.3)
+	face.look_left()
 func _contort_right():
 	confirm_contort = true
 	var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_ELASTIC).set_parallel()
 	tween.tween_property(right_arm, 'rotation_degrees', -90.0, 0.5)
-	tween.tween_property(eyes, 'position', eyes_base_pos + (Vector2.RIGHT * 5.0), 0.3)
+	face.look_right()
 func _contort_up():
 	confirm_contort = true
 	var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_ELASTIC).set_parallel()
 	tween.tween_property(left_arm, 'rotation_degrees', 180.0, 0.5)
 	tween.tween_property(right_arm, 'rotation_degrees', -180.0, 0.5)
-	tween.tween_property(eyes, 'position', eyes_base_pos + (Vector2.UP * 5.0), 0.3)
-	tween.tween_callback(func (): mouth.text = "o")
 func _contort_down():
 	confirm_contort = true
 	var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_ELASTIC)
 	tween.tween_property(head, 'position:y', head_crouching.position.y, 0.5)
-	tween.tween_callback(func (): eyes.text = "x")
-	tween.tween_callback(func (): mouth.text = ")")
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -97,9 +91,6 @@ func _release_contortion():
 	tween.tween_property(left_arm, 'rotation_degrees', 0.0, 0.5)
 	tween.tween_property(right_arm, 'rotation_degrees', 0.0, 0.5)
 	tween.tween_property(head, 'position:y', head_upright.position.y, 0.5)
-	tween.tween_property(eyes, 'position', eyes_base_pos, 0.3)
-	tween.tween_callback(func (): eyes.text = ":")
-	tween.tween_callback(func (): mouth.text = ")")
 	
 	
 func _handle_move():
@@ -114,3 +105,20 @@ func _handle_move():
 		velocity.x = direction * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0.0, SPEED)
+
+
+func _on_senses_body_entered(body: Node2D) -> void:
+	if (body != self and body is Player and !people_close.has(body)):
+		face.behold_target(body.face.eyes.center)
+		face.happy()
+		people_close.push_back(body)
+
+
+func _on_senses_body_exited(body: Node2D) -> void:
+	if (body != self and body is Player):
+		people_close.erase(body)
+		if (face.look_at_target == body.face.eyes.center):
+			if (people_close.size() == 0):
+				face.idle()
+			else:
+				face.behold_target(people_close.pick_random())

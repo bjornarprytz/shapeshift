@@ -1,0 +1,105 @@
+[gd_scene load_steps=9 format=3 uid="uid://bxp44e3ehc7rp"]
+
+[ext_resource type="Script" path="res://things/face.gd" id="1_ksbh7"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="2_y0wap"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/parallel_state.gd" id="3_xyko1"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="4_quyia"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="5_lpx08"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="6_xghof"]
+[ext_resource type="PackedScene" uid="uid://h8gbncaqbwyn" path="res://things/eyes.tscn" id="7_jehk5"]
+
+[sub_resource type="Theme" id="Theme_1qqqp"]
+default_font_size = 256
+
+[node name="Face" type="ColorRect"]
+offset_right = 52.0
+offset_bottom = 52.0
+color = Color(0.701961, 0.415686, 0, 1)
+script = ExtResource("1_ksbh7")
+
+[node name="Eyes" parent="." instance=ExtResource("7_jehk5")]
+position = Vector2(0, 6)
+
+[node name="Mouth" type="RichTextLabel" parent="."]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 57.0
+offset_top = 31.0
+offset_right = 229.0
+offset_bottom = 428.0
+rotation = 1.5708
+scale = Vector2(0.15, 0.15)
+theme = SubResource("Theme_1qqqp")
+text = ")"
+
+[node name="StateChart" type="Node" parent="."]
+script = ExtResource("2_y0wap")
+
+[node name="Root" type="Node" parent="StateChart"]
+script = ExtResource("3_xyko1")
+
+[node name="Eyes" type="Node" parent="StateChart/Root"]
+script = ExtResource("4_quyia")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateChart/Root/Eyes"]
+script = ExtResource("5_lpx08")
+
+[node name="ToLookAt" type="Node" parent="StateChart/Root/Eyes/Idle"]
+script = ExtResource("6_xghof")
+to = NodePath("../../LookAt")
+event = &"look_at"
+
+[node name="LookAt" type="Node" parent="StateChart/Root/Eyes"]
+script = ExtResource("5_lpx08")
+
+[node name="ToIdle" type="Node" parent="StateChart/Root/Eyes/LookAt"]
+script = ExtResource("6_xghof")
+to = NodePath("../../Idle")
+event = &"idle"
+
+[node name="Expression" type="Node" parent="StateChart/Root"]
+script = ExtResource("4_quyia")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateChart/Root/Expression"]
+script = ExtResource("5_lpx08")
+
+[node name="Blush" type="Node" parent="StateChart/Root/Expression"]
+script = ExtResource("5_lpx08")
+
+[node name="Surprise" type="Node" parent="StateChart/Root/Expression"]
+script = ExtResource("5_lpx08")
+
+[node name="Happy" type="Node" parent="StateChart/Root/Expression"]
+script = ExtResource("5_lpx08")
+
+[node name="ToIdle" type="Node" parent="StateChart/Root/Expression"]
+script = ExtResource("6_xghof")
+to = NodePath("../Idle")
+event = &"idle"
+
+[node name="ToBlush" type="Node" parent="StateChart/Root/Expression"]
+script = ExtResource("6_xghof")
+to = NodePath("../Blush")
+event = &"blush"
+
+[node name="ToSurprise" type="Node" parent="StateChart/Root/Expression"]
+script = ExtResource("6_xghof")
+to = NodePath("../Surprise")
+event = &"surprise"
+
+[node name="ToHappy" type="Node" parent="StateChart/Root/Expression"]
+script = ExtResource("6_xghof")
+to = NodePath("../Happy")
+event = &"happy"
+
+[node name="LookLeftTarget" type="Node2D" parent="."]
+position = Vector2(0, 18)
+
+[node name="LookRightTarget" type="Node2D" parent="."]
+position = Vector2(52, 18)
+
+[connection signal="state_physics_processing" from="StateChart/Root/Eyes/LookAt" to="." method="_on_look_at_state_physics_processing"]
+[connection signal="state_physics_processing" from="StateChart/Root/Expression/Idle" to="." method="_on_idle_state_physics_processing"]
+[connection signal="state_physics_processing" from="StateChart/Root/Expression/Happy" to="." method="_on_happy_state_physics_processing"]

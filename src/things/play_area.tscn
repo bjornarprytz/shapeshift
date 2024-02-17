@@ -34,6 +34,7 @@ position = Vector2(387, 573)
 config = SubResource("Resource_s56bd")
 
 [node name="Floor" type="StaticBody2D" parent="."]
+collision_layer = 4
 
 [node name="Shape" type="CollisionShape2D" parent="Floor"]
 position = Vector2(0, 670)
@@ -45,12 +46,14 @@ offset_right = 1280.0
 offset_bottom = 720.0
 
 [node name="LeftWall" type="StaticBody2D" parent="."]
+collision_layer = 4
 
 [node name="Bounds" type="CollisionShape2D" parent="LeftWall"]
 rotation = 1.5708
 shape = SubResource("WorldBoundaryShape2D_esay2")
 
 [node name="RightWall" type="StaticBody2D" parent="."]
+collision_layer = 4
 
 [node name="Bounds" type="CollisionShape2D" parent="RightWall"]
 position = Vector2(1280, 0)

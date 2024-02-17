@@ -1,14 +1,28 @@
-[gd_scene load_steps=4 format=3 uid="uid://pxivlp4yp7j2"]
+[gd_scene load_steps=9 format=3 uid="uid://pxivlp4yp7j2"]
 
 [ext_resource type="Script" path="res://things/player.gd" id="1_gfkjo"]
+[ext_resource type="PackedScene" uid="uid://bxp44e3ehc7rp" path="res://things/face.tscn" id="2_diw7i"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1dd7d"]
 size = Vector2(80, 160)
 
-[sub_resource type="Theme" id="Theme_wa6to"]
-default_font_size = 256
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lu34p"]
+size = Vector2(80, 102)
 
-[node name="Player" type="CharacterBody2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3g37i"]
+size = Vector2(80, 86)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aiaoc"]
+size = Vector2(24, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p8ub7"]
+size = Vector2(24, 64)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_65uns"]
+radius = 274.357
+
+[node name="Player" type="CharacterBody2D" groups=["players"]]
+collision_mask = 4
 script = ExtResource("1_gfkjo")
 
 [node name="Shape" type="CollisionShape2D" parent="."]
@@ -20,42 +34,34 @@ offset_left = -40.0
 offset_top = -102.0
 offset_right = 40.0
 
+[node name="StaticBody" type="StaticBody2D" parent="Body"]
+collision_layer = 2
+collision_mask = 2
+
+[node name="Shape" type="CollisionShape2D" parent="Body/StaticBody"]
+position = Vector2(40, 51)
+shape = SubResource("RectangleShape2D_lu34p")
+
 [node name="Head" type="ColorRect" parent="."]
 offset_left = -40.0
 offset_top = -160.0
 offset_right = 40.0
 offset_bottom = -74.0
 
-[node name="Face" type="ColorRect" parent="Head"]
-offset_left = 14.0
-offset_top = 15.0
-offset_right = 66.0
-offset_bottom = 67.0
-color = Color(0.701961, 0.415686, 0, 1)
+[node name="StaticBody" type="StaticBody2D" parent="Head"]
+collision_layer = 2
+collision_mask = 2
 
-[node name="Eyes" type="RichTextLabel" parent="Head/Face"]
-modulate = Color(0, 0, 0, 1)
-layout_mode = 0
-offset_left = 67.0
-offset_top = 6.0
-offset_right = 249.0
-offset_bottom = 403.0
-rotation = 1.5708
-scale = Vector2(0.2, 0.2)
-theme = SubResource("Theme_wa6to")
-text = ":"
+[node name="Shape" type="CollisionShape2D" parent="Head/StaticBody"]
+position = Vector2(40, 43)
+shape = SubResource("RectangleShape2D_3g37i")
 
-[node name="Mouth" type="RichTextLabel" parent="Head/Face"]
-modulate = Color(0, 0, 0, 1)
+[node name="Face" parent="Head" instance=ExtResource("2_diw7i")]
 layout_mode = 0
-offset_left = 67.0
-offset_top = 23.0
-offset_right = 239.0
-offset_bottom = 420.0
-rotation = 1.5708
-scale = Vector2(0.2, 0.2)
-theme = SubResource("Theme_wa6to")
-text = ")"
+offset_left = 15.0
+offset_top = 14.0
+offset_right = 67.0
+offset_bottom = 66.0
 
 [node name="RightArm" type="ColorRect" parent="."]
 offset_left = 28.0
@@ -64,6 +70,14 @@ offset_right = 52.0
 offset_bottom = -24.0
 pivot_offset = Vector2(12, 12)
 
+[node name="StaticBody" type="StaticBody2D" parent="RightArm"]
+collision_layer = 2
+collision_mask = 2
+
+[node name="Shape" type="CollisionShape2D" parent="RightArm/StaticBody"]
+position = Vector2(12, 32)
+shape = SubResource("RectangleShape2D_aiaoc")
+
 [node name="LeftArm" type="ColorRect" parent="."]
 offset_left = -52.0
 offset_top = -88.0
@@ -71,8 +85,26 @@ offset_right = -28.0
 offset_bottom = -24.0
 pivot_offset = Vector2(12, 12)
 
+[node name="StaticBody" type="StaticBody2D" parent="LeftArm"]
+collision_layer = 2
+collision_mask = 2
+
+[node name="Shape" type="CollisionShape2D" parent="LeftArm/StaticBody"]
+position = Vector2(12, 32)
+shape = SubResource("RectangleShape2D_p8ub7")
+
 [node name="HeadTopPosition" type="Node2D" parent="."]
 position = Vector2(-40, -160)
 
 [node name="HeadLowerPosition" type="Node2D" parent="."]
 position = Vector2(-40, -100)
+
+[node name="Senses" type="Area2D" parent="."]
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Senses"]
+position = Vector2(0, -117)
+shape = SubResource("CircleShape2D_65uns")
+
+[connection signal="body_entered" from="Senses" to="." method="_on_senses_body_entered"]
+[connection signal="body_exited" from="Senses" to="." method="_on_senses_body_exited"]

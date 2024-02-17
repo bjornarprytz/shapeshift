@@ -10,9 +10,9 @@ It's the classic "fit the shape".
 
 ### Mechanics
 
-- Move and jump
 - Players with collider
 - Contort into other shapes
+- Climb onto players
 - Balance on top of other players
 - Get to the shape within the time limit
 
@@ -24,19 +24,23 @@ It's the classic "fit the shape".
 
 ## TODO
 
-- Player
-  - Climb on top of other players
-  - Idle animation
 - Game Loop
   - Target area
   - Countdown timer
   - Scoring
   - Failure animation
-- Music
 - Scene (3d)
   - Billboard background moving toward the camera
+- Player
+  - Climb on top of other players
+- Music
 
 - Push release with `./push_release.sh`
+
+### Nice to have
+
+- Facial expression API
+- Idle animation
 
 ### Extra
 
