@@ -10,12 +10,9 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-
-func check():
+func check() -> bool:
 	var players = get_tree().get_nodes_in_group("players")
 	
 	var shapes = get_overlapping_bodies()
 	
-	# TODO: Make sure all of them are inside the bounds
-	
-	pass
+	return players.all(func(p): return shapes.has(p)) and $NoGoZones.get_children().all(func(z:NoGoZone): return !z.is_touched)

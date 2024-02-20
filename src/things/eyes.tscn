@@ -20,6 +20,7 @@ offset_bottom = 4.0
 
 [node name="Pupil" type="RichTextLabel" parent="LeftAnchor/Lid"]
 modulate = Color(0, 0, 0, 1)
+layout_mode = 0
 offset_left = -3.0
 offset_top = -48.0
 offset_right = 152.0
@@ -41,6 +42,7 @@ offset_bottom = 4.0
 
 [node name="Pupil" type="RichTextLabel" parent="RightAnchor/Lid"]
 modulate = Color(0, 0, 0, 1)
+layout_mode = 0
 offset_left = -3.0
 offset_top = -48.0
 offset_right = 152.0

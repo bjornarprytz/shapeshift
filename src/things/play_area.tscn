@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://bttkqg8asugdx"]
+[gd_scene load_steps=8 format=3 uid="uid://bttkqg8asugdx"]
 
 [ext_resource type="PackedScene" uid="uid://pxivlp4yp7j2" path="res://things/player.tscn" id="1_iilg3"]
 [ext_resource type="Script" path="res://things/player_config.gd" id="2_8b828"]
+[ext_resource type="PackedScene" uid="uid://c83loq5gsh774" path="res://things/target_area.tscn" id="3_pgjnn"]
 
 [sub_resource type="Resource" id="Resource_s56bd"]
 script = ExtResource("2_8b828")
@@ -63,3 +64,6 @@ shape = SubResource("WorldBoundaryShape2D_esay2")
 [node name="Player2" parent="." instance=ExtResource("1_iilg3")]
 position = Vector2(915, 601)
 config = SubResource("Resource_c6o21")
+
+[node name="TargetArea" parent="." instance=ExtResource("3_pgjnn")]
+position = Vector2(649, 668)

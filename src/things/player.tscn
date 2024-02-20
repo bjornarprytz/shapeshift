@@ -4,10 +4,10 @@
 [ext_resource type="PackedScene" uid="uid://bxp44e3ehc7rp" path="res://things/face.tscn" id="2_diw7i"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1dd7d"]
-size = Vector2(80, 160)
+size = Vector2(65, 159)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lu34p"]
-size = Vector2(80, 102)
+size = Vector2(66, 102)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3g37i"]
 size = Vector2(80, 86)
@@ -26,20 +26,21 @@ collision_mask = 4
 script = ExtResource("1_gfkjo")
 
 [node name="Shape" type="CollisionShape2D" parent="."]
-position = Vector2(0, -80)
+position = Vector2(-0.5, -80.5)
 shape = SubResource("RectangleShape2D_1dd7d")
 
 [node name="Body" type="ColorRect" parent="."]
-offset_left = -40.0
+offset_left = -33.0
 offset_top = -102.0
-offset_right = 40.0
+offset_right = 32.0
 
-[node name="StaticBody" type="StaticBody2D" parent="Body"]
+[node name="StaticBody" type="Area2D" parent="Body"]
 collision_layer = 2
-collision_mask = 2
+collision_mask = 0
+monitoring = false
 
 [node name="Shape" type="CollisionShape2D" parent="Body/StaticBody"]
-position = Vector2(40, 51)
+position = Vector2(33, 51)
 shape = SubResource("RectangleShape2D_lu34p")
 
 [node name="Head" type="ColorRect" parent="."]
@@ -48,9 +49,10 @@ offset_top = -160.0
 offset_right = 40.0
 offset_bottom = -74.0
 
-[node name="StaticBody" type="StaticBody2D" parent="Head"]
+[node name="StaticBody" type="Area2D" parent="Head"]
 collision_layer = 2
-collision_mask = 2
+collision_mask = 0
+monitoring = false
 
 [node name="Shape" type="CollisionShape2D" parent="Head/StaticBody"]
 position = Vector2(40, 43)
@@ -70,9 +72,10 @@ offset_right = 52.0
 offset_bottom = -24.0
 pivot_offset = Vector2(12, 12)
 
-[node name="StaticBody" type="StaticBody2D" parent="RightArm"]
+[node name="StaticBody" type="Area2D" parent="RightArm"]
 collision_layer = 2
-collision_mask = 2
+collision_mask = 0
+monitoring = false
 
 [node name="Shape" type="CollisionShape2D" parent="RightArm/StaticBody"]
 position = Vector2(12, 32)
@@ -85,9 +88,10 @@ offset_right = -28.0
 offset_bottom = -24.0
 pivot_offset = Vector2(12, 12)
 
-[node name="StaticBody" type="StaticBody2D" parent="LeftArm"]
+[node name="StaticBody" type="Area2D" parent="LeftArm"]
 collision_layer = 2
-collision_mask = 2
+collision_mask = 0
+monitoring = false
 
 [node name="Shape" type="CollisionShape2D" parent="LeftArm/StaticBody"]
 position = Vector2(12, 32)

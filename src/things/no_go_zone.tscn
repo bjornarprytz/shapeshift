@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://lmd3ej6cvfsi"]
+
+[ext_resource type="Script" path="res://things/no_go_zone.gd" id="1_xmpi0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p2qxu"]
+size = Vector2(40, 40)
+
+[node name="NoGoZone" type="ReferenceRect"]
+offset_right = 40.0
+offset_bottom = 40.0
+editor_only = false
+script = ExtResource("1_xmpi0")
+
+[node name="NoGoZone" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 3
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="NoGoZone"]
+position = Vector2(20, 20)
+shape = SubResource("RectangleShape2D_p2qxu")
+
+[connection signal="area_entered" from="NoGoZone" to="." method="_on_no_go_zone_area_entered"]
+[connection signal="area_exited" from="NoGoZone" to="." method="_on_no_go_zone_area_exited"]

@@ -25,22 +25,21 @@ It's the classic "fit the shape".
 ## TODO
 
 - Game Loop
-  - Target area
   - Countdown timer
-  - Scoring
-  - Failure animation
-- Scene (3d)
-  - Billboard background moving toward the camera
 - Player
   - Climb on top of other players
-- Music
+- Scene (3d)
+  - Billboard background moving toward the camera
 
 - Push release with `./push_release.sh`
 
 ### Nice to have
 
-- Facial expression API
+- Make Target Area pretty
+- Scoring
 - Idle animation
+- Music
+- Failure animation
 
 ### Extra
 
