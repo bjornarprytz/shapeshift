@@ -22,7 +22,7 @@ size = Vector2(24, 64)
 radius = 274.357
 
 [node name="Player" type="CharacterBody2D" groups=["players"]]
-collision_mask = 4
+collision_mask = 5
 script = ExtResource("1_gfkjo")
 
 [node name="Shape" type="CollisionShape2D" parent="."]

@@ -26,16 +26,17 @@ It's the classic "fit the shape".
 
 - Game Loop
   - Countdown timer
+  - Reset Game
 - Player
   - Climb on top of other players
-- Scene (3d)
-  - Billboard background moving toward the camera
 
 - Push release with `./push_release.sh`
 
 ### Nice to have
 
 - Make Target Area pretty
+  - Scene (3d)
+    - Billboard background moving toward the camera
 - Scoring
 - Idle animation
 - Music
