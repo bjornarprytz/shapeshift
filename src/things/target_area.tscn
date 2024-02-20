@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://lmd3ej6cvfsi" path="res://things/no_go_zone.tscn" id="2_pfjuq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4nt8p"]
-size = Vector2(284, 291)
+size = Vector2(250, 287)
 
 [node name="TargetArea" type="Area2D"]
 collision_layer = 0
@@ -12,28 +12,50 @@ monitorable = false
 script = ExtResource("1_gx42s")
 
 [node name="Shape" type="CollisionShape2D" parent="."]
-position = Vector2(-29, -145.5)
+position = Vector2(-12, -143.5)
 shape = SubResource("RectangleShape2D_4nt8p")
 
 [node name="NoGoZones" type="Node2D" parent="."]
 
 [node name="NoGoZone" parent="NoGoZones" instance=ExtResource("2_pfjuq")]
-offset_left = 38.0
-offset_top = -89.0
-offset_right = 105.0
-offset_bottom = -8.0
+offset_left = 75.0
+offset_top = -85.0
+offset_right = 142.0
+offset_bottom = -4.0
 border_color = Color(0, 1, 0, 1)
 
 [node name="NoGoZone2" parent="NoGoZones" instance=ExtResource("2_pfjuq")]
-offset_left = -132.0
-offset_top = -192.0
-offset_right = 13.0
-offset_bottom = -181.0
+offset_left = -158.0
+offset_top = -227.0
+offset_right = -95.0
+offset_bottom = -152.0
 border_color = Color(0, 1, 0, 1)
 
 [node name="NoGoZone3" parent="NoGoZones" instance=ExtResource("2_pfjuq")]
-offset_left = -157.0
-offset_top = -98.0
-offset_right = -112.0
-offset_bottom = -1.0
+offset_left = -163.0
+offset_top = -51.0
+offset_right = -81.0
+offset_bottom = -3.0
 border_color = Color(0, 1, 0, 1)
+
+[node name="NoGoZone4" parent="NoGoZones" instance=ExtResource("2_pfjuq")]
+offset_left = -69.0
+offset_top = -319.0
+offset_right = 13.0
+offset_bottom = -271.0
+border_color = Color(0, 1, 0, 1)
+
+[node name="NoGoZone5" parent="NoGoZones" instance=ExtResource("2_pfjuq")]
+offset_left = 66.0
+offset_top = -184.0
+offset_right = 148.0
+offset_bottom = -136.0
+border_color = Color(0, 1, 0, 1)
+
+[node name="ReferenceRect" type="ReferenceRect" parent="."]
+offset_left = -137.0
+offset_top = -287.0
+offset_right = 115.0
+offset_bottom = -1.0
+border_color = Color(0.823529, 0.752941, 0, 1)
+editor_only = false

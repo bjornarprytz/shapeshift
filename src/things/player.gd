@@ -10,6 +10,11 @@ extends CharacterBody2D
 @onready var left_arm : ColorRect = $LeftArm
 @onready var right_arm : ColorRect = $RightArm
 
+@onready var base_shape_position = $Shape.position
+@onready var base_shape_size = $Shape.shape.size
+
+var shape : RectangleShape2D
+
 @onready var face : Face = $Head/Face
 
 var people_close : Array[Player] = []
@@ -29,6 +34,10 @@ var confirm_contort : bool
 
 func _ready() -> void:
 	assert(config != null)
+	
+	$Shape.shape = $Shape.shape.duplicate()
+	shape = $Shape.shape
+	
 	for part in [my_body, head, left_arm, right_arm]:
 		part.color = config.color
 	
@@ -73,8 +82,10 @@ func _contort_up():
 	tween.tween_property(right_arm, 'rotation_degrees', -180.0, 0.5)
 func _contort_down():
 	confirm_contort = true
-	var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_ELASTIC)
+	var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_ELASTIC).set_parallel()
 	tween.tween_property(head, 'position:y', head_crouching.position.y, 0.5)
+	tween.tween_property(shape, 'size:y', my_body.size.y, 0.5)
+	tween.tween_property(shape, 'position:y', my_body.position.y + (my_body.size.y / 2.0), 0.5)
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -91,10 +102,15 @@ func _release_contortion():
 	tween.tween_property(left_arm, 'rotation_degrees', 0.0, 0.5)
 	tween.tween_property(right_arm, 'rotation_degrees', 0.0, 0.5)
 	tween.tween_property(head, 'position:y', head_upright.position.y, 0.5)
+	tween.tween_property(shape, 'size', base_shape_size, 0.5)
+	tween.tween_property(shape, 'position', base_shape_position, 0.5)
 	
 	
 func _handle_move():
 	var direction := 0.0
+	
+	if Input.is_key_pressed(config.up) and !is_contorting and is_on_floor():
+		velocity.y -= 800.0
 	
 	if Input.is_key_pressed(config.right):
 		direction += 1.0
