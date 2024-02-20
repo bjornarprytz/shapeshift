@@ -85,7 +85,7 @@ func _contort_down():
 	var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_ELASTIC).set_parallel()
 	tween.tween_property(head, 'position:y', head_crouching.position.y, 0.5)
 	tween.tween_property(shape, 'size:y', my_body.size.y, 0.5)
-	tween.tween_property(shape, 'position:y', my_body.position.y + (my_body.size.y / 2.0), 0.5)
+	tween.tween_property($Shape, 'position:y', my_body.position.y + (my_body.size.y * .5), 0.5)
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -103,7 +103,7 @@ func _release_contortion():
 	tween.tween_property(right_arm, 'rotation_degrees', 0.0, 0.5)
 	tween.tween_property(head, 'position:y', head_upright.position.y, 0.5)
 	tween.tween_property(shape, 'size', base_shape_size, 0.5)
-	tween.tween_property(shape, 'position', base_shape_position, 0.5)
+	tween.tween_property($Shape, 'position', base_shape_position, 0.5)
 	
 	
 func _handle_move():

@@ -24,12 +24,6 @@ It's the classic "fit the shape".
 
 ## TODO
 
-- Game Loop
-  - Countdown timer
-  - Reset Game
-- Player
-  - Climb on top of other players
-
 - Push release with `./push_release.sh`
 
 ### Nice to have
